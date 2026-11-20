@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Login | CSMS</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #f7f9fc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            width: 900px;
+            max-width: 90%;
+            min-height: 500px;
+            background: white;
+            display: flex;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(8, 37, 103, 0.15);
+        }
+
+        .left-section {
+            width: 45%;
+            background: #082567;
+            color: white;
+            padding: 55px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 45px;
+        }
+
+        .logo span {
+            color: #ffd43b;
+        }
+
+        .left-section h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .left-section h1 span {
+            color: #8cc9ff;
+        }
+
+        .left-section p {
+            color: #dbeafe;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .right-section {
+            width: 55%;
+            padding: 55px 65px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right-section h2 {
+            color: #082567;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            color: #102a43;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d6dee8;
+            border-radius: 7px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2878c8;
+        }
+
+        .login-btn {
+            width: 100%;
+            border: none;
+            background: #082567;
+            color: white;
+            padding: 13px;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #2878c8;
+        }
+
+        .back {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back a {
+            color: #2878c8;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+
+            .login-container {
+                flex-direction: column;
+            }
+
+            .left-section,
+            .right-section {
+                width: 100%;
+            }
+
+            .left-section {
+                padding: 35px;
+            }
+
+            .right-section {
+                padding: 35px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="left-section">
+
+            <div class="logo">
+                CSMS<span>.</span>
+            </div>
+
+            <h1>
+                Welcome,<br>
+                <span>Student!</span>
+            </h1>
+
+            <p>
+                Sign in to access your college dashboard,
+                attendance, examinations, results and fees.
+            </p>
+
+        </div>
+
+
+        <div class="right-section">
+
+            <h2>Student Login</h2>
+
+            <p class="subtitle">
+                Enter your credentials to continue
+            </p>
+
+           <form method="POST">
+    {% csrf_token %}
+
+    <label>Student ID</label>
+
+    <input
+        type="text"
+        name="student_id"
+        placeholder="Enter your Student ID"
+        required
+    >
+
+    <label>Password</label>
+
+    <input
+        type="password"
+        name="password"
+        placeholder="Enter your password"
+        required
+    >
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+    
+
+    <button type="submit" class="login-btn">
+        Login
+    </button>
+</form>
+
+            <div class="back">
+                <a href="/">← Back to Home</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
