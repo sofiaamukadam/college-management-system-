@@ -1,0 +1,54 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notifications</title>
+    <link rel="stylesheet" href="{% static 'main/dashboard.css' %}">
+</head>
+
+<body>
+
+    <div class="navbar">
+        <h2>Notifications</h2>
+        <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+    </div>
+
+    <div class="welcome">
+        <h1>Your Notifications</h1>
+        <p>Stay updated with your college activities.</p>
+    </div>
+
+    <div class="notices">
+
+        {% for item in notifications %}
+
+            <div class="notification-card">
+                <h3>{{ item.notification.title }}</h3>
+
+                <p>{{ item.notification.message }}</p>
+
+                <small>
+                    {{ item.notification.category }} |
+                    {{ item.notification.created_at|date:"d M Y, h:i A" }}
+                </small>
+
+                <p>
+                    {% if item.is_read %}
+                        Read
+                    {% else %}
+                        Unread
+                    {% endif %}
+                </p>
+            </div>
+
+        {% empty %}
+
+            <p>No notifications yet. You're all caught up!</p>
+
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Fees</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 30px;
+            color: #172554;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #172554;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        }
+
+        .fee-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 20px;
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 13px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #eff6ff;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>My Fees</h1>
+    <p>Welcome, {{ student.name }}</p>
+
+    {% for fee in fees %}
+
+    <div class="card">
+        <h2>Academic Year: {{ fee.fee_structure.academic_year }}</h2>
+
+        <h3>Regular Fee Breakdown</h3>
+
+        <div class="fee-row">
+            <span>Tuition Fee</span>
+            <span>₹{{ fee.fee_structure.tuition_fee }}</span>
+        </div>
+
+        <div class="fee-row">
+            <span>Library Fee</span>
+            <span>₹{{ fee.fee_structure.library_fee }}</span>
+        </div>
+
+        <div class="fee-row">
+            <span>Examination Fee</span>
+            <span>₹{{ fee.fee_structure.examination_fee }}</span>
+        </div>
+
+        <div class="fee-row">
+            <span>Other Fee</span>
+            <span>₹{{ fee.fee_structure.other_fee }}</span>
+        </div>
+
+        <div class="fee-row">
+            <span>Regular Fee Total</span>
+            <span>₹{{ fee.regular_fee }}</span>
+        </div>
+
+        <h3>KT Fee Details</h3>
+
+        <div class="fee-row">
+            <span>Failed Subjects</span>
+            <span>{{ fee.kt_subject_count }}</span>
+        </div>
+
+        <div class="fee-row">
+            <span>KT Fee</span>
+            <span>₹{{ fee.kt_fee }}</span>
+        </div>
+
+        <h3>Payment Summary</h3>
+
+        <div class="fee-row total">
+            <span>Total Fee</span>
+            <span>₹{{ fee.total_fee }}</span>
+        </div>
+
+        <div class="fee-row">
+            <span>Amount Paid</span>
+            <span>₹{{ fee.amount_paid }}</span>
+        </div>
+
+        <div class="fee-row">
+            <span>Outstanding Balance</span>
+            <span>₹{{ fee.balance }}</span>
+        </div>
+
+        <p>
+            Payment Status:
+            <span class="status">{{ fee.payment_status }}</span>
+        </p>
+
+        <h3>Payment History</h3>
+
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Transaction ID</th>
+                <th>Remarks</th>
+            </tr>
+
+            {% for payment in fee.payments.all %}
+            <tr>
+                <td>{{ payment.payment_date }}</td>
+                <td>₹{{ payment.amount }}</td>
+                <td>{{ payment.transaction_id|default:"—" }}</td>
+                <td>{{ payment.remarks|default:"—" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No payments recorded yet.</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+
+    {% empty %}
+
+    <div class="card">
+        <p>No fee records are available yet.</p>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

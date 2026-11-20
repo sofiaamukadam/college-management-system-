@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Timetable</title>
+    <link rel="stylesheet" href="{% static 'main/dashboard.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            🎓 College Management System
+        </div>
+
+        <div class="nav-right">
+            <span>Student Portal</span>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <section class="welcome">
+            <div>
+                <p class="small-title">STUDENT PORTAL</p>
+                <h1>📅 My Timetable</h1>
+
+                <p class="student-info">
+                    Student: <strong>{{ student.name }}</strong>
+                    <span>•</span>
+                    Class: <strong>{{ student.class_name }}</strong>
+                </p>
+            </div>
+        </section>
+
+        {% if timetable %}
+
+        <section class="notices">
+
+            <div class="section-heading">
+                <h2>Weekly Schedule</h2>
+            </div>
+
+            <table class="timetable-table">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Subject</th>
+                        <th>Teacher</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Classroom</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for item in timetable %}
+                    <tr>
+                        <td>{{ item.day }}</td>
+                        <td>{{ item.teaching_assignment.subject.name }}</td>
+                        <td>{{ item.teaching_assignment.teacher.name }}</td>
+                        <td>{{ item.start_time|time:"h:i A" }}</td>
+                        <td>{{ item.end_time|time:"h:i A" }}</td>
+                        <td>{{ item.classroom }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </section>
+
+        {% else %}
+
+        <section class="notices">
+            <div class="notice-empty">
+                <div class="notice-icon">📭</div>
+                <p>No timetable available</p>
+                <span>Your administrator hasn't added a timetable yet.</span>
+            </div>
+        </section>
+
+        {% endif %}
+
+    </main>
+
+    <footer>
+        <p>© 2026 College Management System</p>
+    </footer>
+
+</body>
+</html>

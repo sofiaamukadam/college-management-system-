@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="{% static 'main/teacher_dashboard.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">College Management System</div>
+
+        <div class="nav-right">
+            <span>Teacher Portal</span>
+            <a href="/admin/logout/">Logout</a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <section class="welcome">
+            <p class="small-title">TEACHER DASHBOARD</p>
+
+            <h1>Welcome, {{ teacher.name }}!</h1>
+
+            <div class="teacher-info">
+                <span>Teacher ID: {{ teacher.teacher_id }}</span>
+                <span>•</span>
+                <span>{{ teacher.email }}</span>
+            </div>
+        </section>
+
+        <section class="dashboard-grid">
+
+            <div class="card">
+                <div class="card-icon">📚</div>
+                <div>
+                    <p>My Subjects</p>
+                    <h2>1</h2>
+                    <span>Assigned subjects</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">👨‍🎓</div>
+                <div>
+                    <p>My Students</p>
+                    <h2>—</h2>
+                    <span>Students in your classes</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <div>
+                    <p>Attendance</p>
+                    <h2>Manage</h2>
+                    <span>Mark student attendance</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📝</div>
+                <div>
+                    <p>Examination & Results</p>
+                    <h2>Manage</h2>
+                    <span>Enter and manage results</span>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="notices">
+            <div class="section-heading">
+                <h2>Quick Actions</h2>
+            </div>
+
+            <div class="quick-actions">
+               <a href="/teacher-attendance/" class="action-btn">
+    Mark Attendance
+</a>
+                <button>Enter Results</button>
+                <button>View Students</button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        College Management System © 2026
+    </footer>
+
+</body>
+</html>

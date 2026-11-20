@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSMS | College Management System</title>
+  
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f9fc;
+            color: #102a43;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            height: 72px;
+            background: #082567;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+        }
+
+        .logo {
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #ffd43b;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #ffd43b;
+        }
+
+        .register-btn {
+            background: #ffd43b;
+            color: #082567 !important;
+            padding: 10px 18px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        /* HERO */
+
+        .hero {
+            text-align: center;
+            padding: 55px 20px 35px;
+        }
+
+        .tagline {
+            color: #2878c8;
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: 45px;
+            color: #082567;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: #2878c8;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #61758a;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* LOGIN CARDS */
+
+        .login-section {
+            display: flex;
+            justify-content: center;
+            gap: 22px;
+            padding: 25px 7% 60px;
+        }
+
+        .login-card {
+            background: white;
+            width: 280px;
+            padding: 28px;
+            text-align: center;
+            border-radius: 14px;
+            border: 1px solid #e0e7ef;
+            box-shadow: 0 8px 25px rgba(8, 37, 103, 0.08);
+            transition: 0.3s;
+        }
+
+        .login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(8, 37, 103, 0.15);
+        }
+
+        .card-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .login-card h2 {
+            color: #082567;
+            margin-bottom: 8px;
+        }
+
+        .login-card p {
+            color: #718096;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .login-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #082567;
+            color: white;
+            padding: 11px 25px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .login-btn:hover {
+            background: #2878c8;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #082567;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .login-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero h1 {
+                font-size: 35px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <div class="logo">
+            CSMS<span>.</span>
+        </div>
+
+        <div class="nav-links">
+
+            <a href="#">About Us</a>
+            <a href="#">Features</a>
+            <a href="#">Products</a>
+            <a href="#">Contact</a>
+
+            <a href="#" class="register-btn">
+                Register Your College
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="tagline">
+            SMART • SIMPLE • CONNECTED
+        </div>
+
+        <h1>
+            College Management System
+        </h1>
+
+        <p>
+            A centralized platform that connects students,
+            teachers and administrators in one simple,
+            secure and efficient system.
+        </p>
+
+    </section>
+
+
+    <!-- LOGIN CARDS -->
+
+    <section class="login-section">
+
+        <!-- STUDENT -->
+
+        <div class="login-card">
+
+            <div class="card-icon">
+                🎓
+            </div>
+
+            <h2>Student</h2>
+
+            <p>
+                Access attendance, examinations,
+                results and fees.
+            </p>
+
+            <a href="/student-login/" class="login-btn">
+                Student Login
+            </a>
+
+        </div>
+
+
+        <!-- TEACHER -->
+
+        <div class="login-card">
+
+            <div class="card-icon">
+                👨‍🏫
+            </div>
+
+            <h2>Teacher</h2>
+
+            <p>
+                Manage attendance, examinations,
+                results and students.
+            </p>
+
+            <a href="/teacher-login/" class="login-btn">
+                Teacher Login
+            </a>
+
+        </div>
+
+
+        <!-- ADMIN -->
+
+        <div class="login-card">
+
+            <div class="card-icon">
+                🏫
+            </div>
+
+            <h2>Admin</h2>
+
+            <p>
+                Manage college operations,
+                users and academic data.
+            </p>
+
+            <a href="/admin-login/" class="login-btn">
+                Admin Login
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        © 2026 CSMS — College Management System
+
+    </footer>
+
+</body>
+
+</html>

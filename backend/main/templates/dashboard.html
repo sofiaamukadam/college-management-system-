@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+
+    <title>Student Dashboard</title>
+
+    <link rel="stylesheet" href="{% static 'main/dashboard.css' %}">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🎓 College Management System
+        </div>
+
+        <div class="nav-right">
+            <span>Student Portal</span>
+            <a href="/admin/logout/">Logout</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Main Container -->
+    <main class="container">
+
+        <!-- Welcome Section -->
+        <section class="welcome">
+
+            <div>
+                <p class="small-title">STUDENT DASHBOARD</p>
+
+                <h1>
+                    Welcome, {{ student }} 👋
+                </h1>
+
+                <p class="student-info">
+                    Student ID: <strong>{{ student.student_id }}</strong>
+                    <span>•</span>
+                    Class: <strong>{{ student.class_name }}</strong>
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- Dashboard Cards -->
+        <section class="dashboard-grid">
+
+            <!-- Attendance -->
+            <div class="card">
+
+                <div class="card-icon">📊</div>
+
+                <div>
+                    <p>Attendance</p>
+
+                    <h2>{{ attendance_percentage }}%</h2>
+
+                    <a href="{% url 'attendance' %}" class="card-link">
+                        View Attendance →
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- Results -->
+            <div class="card">
+
+                <div class="card-icon">📝</div>
+
+                <div>
+                    <p>Exam & Result</p>
+
+                    <h2>View</h2>
+
+                    <a href="{% url 'student_results' %}" class="card-link">
+                        Check Results →
+                    </a>
+                </div>
+
+            </div>
+
+
+            <!-- Fees -->
+            <div class="card">
+
+                <div class="card-icon">💰</div>
+
+                <div>
+                    <p>Fees</p>
+
+                    <h2>View</h2>
+
+                    <a href="{% url 'student_fees' %}" class="card-link">
+                        View Fees →
+                    </a>
+                </div>
+
+            </div>
+
+
+           <!-- Timetable -->
+<div class="card">
+
+    <div class="card-icon">📅</div>
+
+    <div>
+        <p>Timetable</p>
+
+        <h2>View</h2>
+
+        <a href="{% url 'student_timetable' %}" class="card-link">
+            View Schedule →
+        </a>
+    </div>
+
+</div>
+
+
+        <!-- Recent Notices -->
+        <section class="notices">
+
+            <div class="section-heading">
+
+                <h2>📢 Recent Notices</h2>
+
+                <span>College Updates</span>
+
+            </div>
+
+            <div class="notification-list">
+
+                 {% for item in notifications %}
+
+            <div class="notification-card">
+
+                <div class="notification-header">
+                    <h3>{{ item.notification.title }}</h3>
+
+                    <span class="notification-status">
+                        {% if item.is_read %}
+                            Read
+                        {% else %}
+                            Unread
+                        {% endif %}
+                    </span>
+                </div>
+
+                <p>{{ item.notification.message }}</p>
+
+                <small>
+                    {{ item.notification.category }} |
+                    {{ item.notification.created_at|date:"d M Y, h:i A" }}
+                </small>
+
+            </div>
+
+        {% empty %}
+
+            <div class="notice-empty">
+                <div class="notice-icon">📭</div>
+                <p>No notifications yet</p>
+                <span>You're all caught up!</span>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>© 2026 College Management System</p>
+
+    </footer>
+
+</body>
+</html>

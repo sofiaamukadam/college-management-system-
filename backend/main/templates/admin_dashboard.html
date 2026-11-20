@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'main/admin_dashboard.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">College Management System</div>
+
+        <div class="nav-right">
+            <span>Admin Portal</span>
+            <a href="/admin/">Django Admin</a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <section class="welcome">
+            <p class="small-title">ADMIN DASHBOARD</p>
+
+            <h1>Welcome, Admin!</h1>
+
+            <p>
+                Manage students, teachers, classes, subjects,
+                attendance and academic records.
+            </p>
+        </section>
+
+        <section class="dashboard-grid">
+
+            <a href="/admin/main/student/" class="card">
+    <div class="card-icon">👨‍🎓</div>
+    <div>
+        <p>Students</p>
+        <h2>Manage</h2>
+        <span>View and manage student records</span>
+    </div>
+</a>
+
+          <a href="/admin/main/teacher/" class="card">
+    <div class="card-icon">🧑‍🏫</div>
+    <div>
+        <p>Teachers</p>
+        <h2>Manage</h2>
+        <span>View and manage teacher records</span>
+    </div>
+</a>
+            <a href="/admin/main/class/" class="card">
+    <div class="card-icon">🏫</div>
+    <div>
+        <p>Classes</p>
+        <h2>Manage</h2>
+        <span>Manage college classes</span>
+    </div>
+</a>
+            <a href="/admin/main/subject/" class="card">
+                <div class="card-icon">📚</div>
+                <div>
+                    <p>Subjects</p>
+                    <h2>Manage</h2>
+                    <span>Manage subjects and assignments</span>
+                </div>
+            </a>
+
+            <a href="/admin/main/attendance/" class="card">
+                <div class="card-icon">📊</div>
+                <div>
+                    <p>Attendance</p>
+                    <h2>Overview</h2>
+                    <span>Monitor student attendance</span>
+                </div>
+            </a>
+
+           <a href="/admin/main/exam/" class="card">
+    <div class="card-icon">📝</div>
+    <div>
+        <p>Examination & Results</p>
+        <h2>Manage</h2>
+        <span>Manage academic results</span>
+    </div>
+</a>
+
+        </section>
+
+        <section class="quick-section">
+
+            <h2>Quick Access</h2>
+
+            <div class="quick-actions">
+                <a href="/admin/">Open Administration</a>
+     <a href="{% url 'student_login' %}">Student Portal</a>
+           <a href="{% url 'teacher_login' %}">Teacher Portal</a>
+                <a href="/admin/main/result/">Manage Results</a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        College Management System © 2026
+    </footer>
+
+</body>
+</html>
