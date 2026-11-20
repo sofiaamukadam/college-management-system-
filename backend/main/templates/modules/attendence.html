@@ -1,0 +1,300 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Attendance Management | CSMS</title>
+
+    <link rel="stylesheet" href="{% static 'main/attendance.css' %}">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            College Management System
+        </div>
+
+        <div class="nav-right">
+
+            <span>Student Portal</span>
+
+            <a href="/dashboard/">
+                Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="container">
+
+        <!-- PAGE HEADER -->
+
+        <div class="page-header">
+
+            <p class="small-title">
+                ATTENDANCE MANAGEMENT
+            </p>
+
+            <h1>
+                My Attendance
+            </h1>
+
+            <p>
+                Track your attendance, subject performance and attendance streak.
+            </p>
+
+        </div>
+
+
+        <!-- OVERALL SUMMARY -->
+
+        <div class="summary-grid">
+
+            <!-- Overall -->
+
+            <div class="summary-card">
+
+                <p class="card-label">
+                    Overall Attendance
+                </p>
+
+                <h2>
+                    {{ overall_percentage }}%
+                </h2>
+
+                <p>
+                    {{ attended_lectures }} attended
+                    / {{ total_lectures }} lectures
+                </p>
+
+            </div>
+
+
+            <!-- Attended -->
+
+            <div class="summary-card">
+
+                <p class="card-label">
+                    Lectures Attended
+                </p>
+
+                <h2>
+                    {{ attended_lectures }}
+                </h2>
+
+                <p>
+                    Present lectures
+                </p>
+
+            </div>
+
+
+            <!-- Missed -->
+
+            <div class="summary-card">
+
+                <p class="card-label">
+                    Lectures Missed
+                </p>
+
+                <h2>
+                    {{ missed_lectures }}
+                </h2>
+
+                <p>
+                    Absent lectures
+                </p>
+
+            </div>
+
+
+            <!-- Streak -->
+
+            <div class="summary-card streak-card">
+
+                <p class="card-label">
+                    Attendance Streak
+                </p>
+
+                <h2>
+                    🔥 {{ current_streak }}
+                </h2>
+
+                <p>
+                    Attendance days
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- STREAK MESSAGE -->
+
+        {% if streak_warning %}
+
+        <div class="streak-warning">
+
+            ⚠️ You have a one-day attendance gap.
+            Your streak is still active.
+
+        </div>
+
+        {% endif %}
+
+
+        {% if streak_broken %}
+
+        <div class="streak-broken">
+
+            ❌ Your attendance streak has been broken.
+
+        </div>
+
+        {% endif %}
+
+<!-- SUBJECT PERFORMANCE -->
+
+<div class="section-header">
+
+    <p class="small-title">
+        SUBJECT PERFORMANCE
+    </p>
+
+    <h2>
+        Attendance by Subject
+    </h2>
+
+    <p>
+        View your attendance summary for each subject.
+    </p>
+
+</div>
+
+
+<div class="attendance-card">
+
+    <table class="attendance-table">
+
+        <thead>
+            <tr>
+                <th>Subject Code</th>
+                <th>Subject Name</th>
+                <th>Attendance</th>
+                <th>Attendance Need</th>
+                <th>View Details</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+
+            {% for subject in subjects %}
+
+            <tr>
+
+                <td>
+                    {{ subject.code }}
+                </td>
+
+                <td>
+                    {{ subject.name }}
+                </td>
+
+                <td>
+
+                    {{ subject.attended }} /
+                    {{ subject.total }}
+
+                    <br>
+
+                    <small>
+                        {{ subject.percentage }}%
+                    </small>
+
+                </td>
+
+              <td>
+
+    {% if subject.percentage >= 75 %}
+
+        <span class="status-present">
+            75%+ Achieved
+        </span>
+
+    {% else %}
+
+        Attend
+        <strong>{{ subject.lectures_needed }}</strong>
+        more lecture{{ subject.lectures_needed|pluralize }}
+        to reach 75%
+
+    {% endif %}
+
+</td>
+                <td>
+
+                 <a
+    href="{% url 'subject_attendance' subject.id %}"
+    class="view-btn"
+>
+    View More
+</a>
+
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td colspan="5">
+                    No subject attendance data available.
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+            <a href="/dashboard/" class="back-btn">
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <script>
+        document.querySelectorAll('.progress-fill').forEach(function (progress) {
+            progress.style.width = progress.dataset.percentage + '%';
+        });
+    </script>
+
+    <footer>
+
+        College Management System © 2026
+
+    </footer>
+
+</body>
+
+</html>
