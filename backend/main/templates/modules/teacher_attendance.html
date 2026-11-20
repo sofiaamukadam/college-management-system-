@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Attendance</title>
+    <link rel="stylesheet" href="{% static 'main/teacher_attendance.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">College Management System</div>
+
+        <div class="nav-right">
+            <span>Teacher Portal</span>
+            <a href="/teacher-dashboard/">Dashboard</a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <div class="page-header">
+            <p class="small-title">ATTENDANCE MANAGEMENT</p>
+            <h1>My Classes</h1>
+            <p>Select a class to mark attendance.</p>
+        </div>
+
+        <div class="attendance-card">
+
+            {% if assignments %}
+
+                <table class="attendance-table">
+
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Subject</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for assignment in assignments %}
+
+                        <tr>
+                            <td>{{ assignment.class_name.name }}</td>
+
+                            <td>{{ assignment.subject.name }}</td>
+
+                            <td>
+                                <a href="{% url 'mark_attendance' assignment.id %}" class="mark-btn">
+                                    Mark Attendance
+                                </a>
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            {% else %}
+
+                <div class="empty">
+                    <h2>No Assigned Classes</h2>
+                    <p>You currently have no classes assigned to you.</p>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </main>
+
+    <footer>
+        College Management System © 2026
+    </footer>
+
+</body>
+</html>

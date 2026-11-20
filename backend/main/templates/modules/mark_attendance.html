@@ -1,0 +1,220 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Mark Attendance</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'main/teacher_attendance.css' %}"
+    >
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            College Management System
+        </div>
+
+        <div class="nav-right">
+            <span>Teacher Portal</span>
+
+            <a href="/teacher-attendance/">
+                Back
+            </a>
+        </div>
+
+    </nav>
+
+
+    <!-- Main Content -->
+    <main class="container">
+
+        <!-- Page Header -->
+        <div class="page-header">
+
+            <p class="small-title">
+                ATTENDANCE MANAGEMENT
+            </p>
+
+            <h1>
+                Mark Attendance
+            </h1>
+
+            <p>
+                Select the date and mark attendance for each student.
+            </p>
+
+        </div>
+
+
+        <!-- Attendance Form -->
+        <form method="POST" class="attendance-card">
+
+            {% csrf_token %}
+
+
+            <!-- Class Information -->
+            <div class="class-info">
+
+                <h2>
+                    {{ assignment.class_name.name }}
+                </h2>
+
+                <p>
+                    {{ assignment.subject.name }}
+                </p>
+
+            </div>
+
+
+           <!-- Date -->
+<div class="date-section">
+
+    <label for="attendance-date">
+        Attendance Date
+    </label>
+
+    <input
+        type="date"
+        id="attendance-date"
+        name="attendance_date"
+        value="{% now 'Y-m-d' %}"
+        required
+    >
+
+</div>
+
+
+<!-- Lecture -->
+<div class="date-section">
+
+    <label for="lecture-number">
+        Lecture
+    </label>
+
+    <select
+        id="lecture-number"
+        name="lecture_number"
+        required
+    >
+        <option value="">Select Lecture</option>
+
+        <option value="1">Lecture 1</option>
+        <option value="2">Lecture 2</option>
+        <option value="3">Lecture 3</option>
+        <option value="4">Lecture 4</option>
+        <option value="5">Lecture 5</option>
+        <option value="6">Lecture 6</option>
+        <option value="7">Lecture 7</option>
+        <option value="8">Lecture 8</option>
+
+    </select>
+
+</div>
+            </div>
+
+
+            <!-- Student Attendance Table -->
+            <table class="attendance-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Attendance</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for student in students %}
+
+                    <tr>
+
+                        <td>
+                            {{ student.student_id }}
+                        </td>
+
+                        <td>
+                            {{ student.name }}
+                        </td>
+
+                        <td>
+
+                            <!-- Present -->
+                            <input
+                                type="radio"
+                                name="status_{{ student.id }}"
+                                value="Present"
+                                id="present_{{ student.id }}"
+                                required
+                            >
+
+                            <label
+                                for="present_{{ student.id }}"
+                                class="present-btn"
+                            >
+                                Present
+                            </label>
+
+
+                            <!-- Absent -->
+                            <input
+                                type="radio"
+                                name="status_{{ student.id }}"
+                                value="Absent"
+                                id="absent_{{ student.id }}"
+                            >
+
+                            <label
+                                for="absent_{{ student.id }}"
+                                class="absent-btn"
+                            >
+                                Absent
+                            </label>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+
+            <!-- Save Button -->
+            <div class="save-section">
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                >
+                    Save Attendance
+                </button>
+
+            </div>
+
+        </form>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        College Management System © 2026
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Results</title>
+    <link rel="stylesheet" href="{% static 'main/student_results.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">College Management System</div>
+
+        <div class="nav-right">
+            <span>{{ student.name }}</span>
+            <a href="/dashboard/">Dashboard</a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <div class="page-header">
+            <p class="small-title">ACADEMIC RECORD</p>
+            <h1>My Results</h1>
+            <p>View your examination results and marks.</p>
+        </div>
+
+        <div class="result-card">
+
+            {% if results %}
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Exam</th>
+                        <th>Subject</th>
+                        <th>Date</th>
+                        <th>Marks</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for result in results %}
+                    <tr>
+                        <td>{{ result.exam.exam_name }}</td>
+                        <td>{{ result.exam.subject.name }}</td>
+                        <td>{{ result.exam.exam_date }}</td>
+                        <td><strong>{{ result.marks_obtained }}</strong></td>
+                        <td>{{ result.exam.total_marks }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% else %}
+
+            <div class="empty">
+                <div class="empty-icon">📝</div>
+                <h2>No Results Available</h2>
+                <p>Your examination results will appear here once they are published.</p>
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </main>
+
+    <footer>
+        College Management System © 2026
+    </footer>
+
+</body>
+</html>
