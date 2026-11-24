@@ -373,8 +373,25 @@ def student_results(request):
 def teacher_dashboard(request):
     teacher = Teacher.objects.get(user=request.user)
 
+    assignments = TeachingAssignment.objects.filter(
+        teacher=teacher
+    ).select_related(
+        'class_name',
+        'subject'
+    )
+
+    total_subjects = assignments.values(
+        'subject'
+    ).distinct().count()
+
+    total_students = Student.objects.filter(
+        class_name__in=assignments.values('class_name')
+    ).distinct().count()
+
     return render(request, 'teacher_dashboard.html', {
-        'teacher': teacher
+        'teacher': teacher,
+        'total_subjects': total_subjects,
+        'total_students': total_students
     })
 
 @login_required
@@ -399,7 +416,6 @@ def teacher_attendance(request):
 @login_required
 def admin_dashboard(request):
     return render(request, 'admin_dashboard.html')
-
 @login_required
 def mark_attendance(request, assignment_id):
 
@@ -413,6 +429,16 @@ def mark_attendance(request, assignment_id):
     students = Student.objects.filter(
         class_name=assignment.class_name
     ).order_by('student_id')
+
+    attendance_date = request.GET.get(
+        'attendance_date',
+        date.today().isoformat()
+    )
+
+    lecture_number = request.GET.get(
+        'lecture_number',
+        '1'
+    )
 
     if request.method == 'POST':
 
@@ -438,12 +464,28 @@ def mark_attendance(request, assignment_id):
 
         return redirect('teacher_attendance')
 
+    existing_attendance = Attendance.objects.filter(
+        teaching_assignment=assignment,
+        date=attendance_date,
+        lecture_number=lecture_number
+    )
+
+    attendance_data = {
+        record.student_id: record.status
+        for record in existing_attendance
+    }
+    for student in students:
+        student.saved_status = attendance_data.get(student.id)
+
     return render(
         request,
         'modules/mark_attendance.html',
         {
             'assignment': assignment,
-            'students': students
+            'students': students,
+            'attendance_date': attendance_date,
+            'lecture_number': lecture_number,
+            'attendance_data': attendance_data
         }
     )
 @login_required

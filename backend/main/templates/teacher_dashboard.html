@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>Teacher Dashboard</title>
-    <link rel="stylesheet" href="{% static '/teacher_dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'teacher_dashboard.css' %}">
 </head>
 
 <body>
@@ -38,7 +38,7 @@
                 <div class="card-icon">📚</div>
                 <div>
                     <p>My Subjects</p>
-                    <h2>1</h2>
+                    <h2>{{ total_subjects }}</h2>
                     <span>Assigned subjects</span>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                 <div class="card-icon">👨‍🎓</div>
                 <div>
                     <p>My Students</p>
-                    <h2>—</h2>
+                    <h2>{{ total_students }}</h2>
                     <span>Students in your classes</span>
                 </div>
             </div>

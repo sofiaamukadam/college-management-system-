@@ -84,7 +84,7 @@
         type="date"
         id="attendance-date"
         name="attendance_date"
-        value="{% now 'Y-m-d' %}"
+        value="{{ attendance_date }}"
         required
     >
 
@@ -105,19 +105,19 @@
     >
         <option value="">Select Lecture</option>
 
-        <option value="1">Lecture 1</option>
-        <option value="2">Lecture 2</option>
-        <option value="3">Lecture 3</option>
-        <option value="4">Lecture 4</option>
-        <option value="5">Lecture 5</option>
-        <option value="6">Lecture 6</option>
-        <option value="7">Lecture 7</option>
-        <option value="8">Lecture 8</option>
-
+        <option value="1" {% if lecture_number == '1' %}selected{% endif %}>Lecture 1</option>
+<option value="2" {% if lecture_number == '2' %}selected{% endif %}>Lecture 2</option>
+<option value="3" {% if lecture_number == '3' %}selected{% endif %}>Lecture 3</option>
+<option value="4" {% if lecture_number == '4' %}selected{% endif %}>Lecture 4</option>
+<option value="5" {% if lecture_number == '5' %}selected{% endif %}>Lecture 5</option>
+<option value="6" {% if lecture_number == '6' %}selected{% endif %}>Lecture 6</option>
+<option value="7" {% if lecture_number == '7' %}selected{% endif %}>Lecture 7</option>
+<option value="8" {% if lecture_number == '8' %}selected{% endif %}>Lecture 8</option>
     </select>
 
 </div>
-            </div>
+            
+
 
 
             <!-- Student Attendance Table -->
@@ -152,12 +152,12 @@
 
                             <!-- Present -->
                             <input
-                                type="radio"
-                                name="status_{{ student.id }}"
-                                value="Present"
-                                id="present_{{ student.id }}"
-                                required
-                            >
+    type="radio"
+    name="status_{{ student.id }}"
+    value="Present"
+    id="present_{{ student.id }}"
+    required
+>
 
                             <label
                                 for="present_{{ student.id }}"
@@ -168,12 +168,13 @@
 
 
                             <!-- Absent -->
-                            <input
-                                type="radio"
-                                name="status_{{ student.id }}"
-                                value="Absent"
-                                id="absent_{{ student.id }}"
-                            >
+                           <input
+    type="radio"
+    name="status_{{ student.id }}"
+    value="Absent"
+    id="absent_{{ student.id }}"
+    {% if student.saved_status == 'Absent' %}checked{% endif %}
+>
 
                             <label
                                 for="absent_{{ student.id }}"
