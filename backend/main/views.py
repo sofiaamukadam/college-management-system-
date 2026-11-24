@@ -8,7 +8,7 @@ def user_logout(request):
     return redirect('/')
 
 def home(request):
-    return render(request, 'main/home.html')
+    return render(request, 'home.html')
 
 def admin_login(request):
     if request.method == 'POST':
@@ -25,11 +25,11 @@ def admin_login(request):
             login(request, user)
             return redirect('/admin-dashboard/')
 
-        return render(request, 'main/login/admin_login.html', {
+        return render(request, 'login/admin_login.html', {
             'error': 'Invalid admin credentials'
         })
 
-    return render(request, 'main/login/admin_login.html')
+    return render(request, 'login/admin_login.html')
 
 def student_login(request):
     if request.method == 'POST':
@@ -39,7 +39,7 @@ def student_login(request):
         try:
             student = Student.objects.get(student_id=student_id)
         except Student.DoesNotExist:
-            return render(request, 'main/login/student_login.html', {
+            return render(request, 'login/student_login.html', {
                 'error': 'Student ID not found'
             })
 
@@ -53,11 +53,11 @@ def student_login(request):
             login(request, user)
             return redirect('/dashboard/')
 
-        return render(request, 'main/login/student_login.html', {
+        return render(request, 'login/student_login.html', {
             'error': 'Invalid password'
         })
 
-    return render(request, 'main/login/student_login.html')
+    return render(request, 'login/student_login.html')
 
 def teacher_login(request):
     if request.method == 'POST':
@@ -67,7 +67,7 @@ def teacher_login(request):
         try:
             teacher = Teacher.objects.get(teacher_id=teacher_id)
         except Teacher.DoesNotExist:
-            return render(request, 'main/login/teacher_login.html', {
+            return render(request, 'login/teacher_login.html', {
                 'error': 'Teacher ID not found'
             })
 
@@ -81,11 +81,11 @@ def teacher_login(request):
             login(request, user)
             return redirect('/teacher-dashboard/')
 
-        return render(request, 'main/login/teacher_login.html', {
+        return render(request, 'login/teacher_login.html', {
             'error': 'Invalid password'
         })
 
-    return render(request, 'main/login/teacher_login.html')
+    return render(request, 'login/teacher_login.html')
 
 @login_required
 def dashboard(request):
@@ -112,7 +112,7 @@ def dashboard(request):
     'notification'
     ).order_by('-notification__created_at')
 
-    return render(request, 'main/dashboard.html', {
+    return render(request, 'dashboard.html', {
         'student': student,
         'attendance_percentage': attendance_percentage,
         'fees': fees,
@@ -329,7 +329,7 @@ def attendance(request):
 
     return render(
         request,
-        'main/modules/attendance.html',
+        'modules/attendance.html',
         {
             'student': student,
 
@@ -362,7 +362,7 @@ def student_results(request):
 
     return render(
         request,
-        'main/modules/student_results.html',
+        'modules/student_results.html',
         {
             'student': student,
             'results': results
@@ -373,7 +373,7 @@ def student_results(request):
 def teacher_dashboard(request):
     teacher = Teacher.objects.get(user=request.user)
 
-    return render(request, 'main/teacher_dashboard.html', {
+    return render(request, 'teacher_dashboard.html', {
         'teacher': teacher
     })
 
@@ -390,7 +390,7 @@ def teacher_attendance(request):
 
     return render(
         request,
-        'main/modules/teacher_attendance.html',
+        'modules/teacher_attendance.html',
         {
             'teacher': teacher,
             'assignments': assignments
@@ -398,7 +398,7 @@ def teacher_attendance(request):
     )
 @login_required
 def admin_dashboard(request):
-    return render(request, 'main/admin_dashboard.html')
+    return render(request, 'admin_dashboard.html')
 
 @login_required
 def mark_attendance(request, assignment_id):
@@ -440,7 +440,7 @@ def mark_attendance(request, assignment_id):
 
     return render(
         request,
-        'main/modules/mark_attendance.html',
+        'modules/mark_attendance.html',
         {
             'assignment': assignment,
             'students': students
@@ -501,7 +501,7 @@ def subject_attendance(request, subject_id):
 
     return render(
         request,
-        'main/modules/subject_attendance.html',
+        'modules/subject_attendance.html',
         {
             'student': student,
             'subject': subject,
@@ -522,7 +522,7 @@ def student_fees(request):
         student=student
     ).select_related('fee_structure')
 
-    return render(request, 'main/student_fees.html', {
+    return render(request, 'student_fees.html', {
         'student': student,
         'fees': fees
     })
@@ -539,7 +539,7 @@ def student_timetable(request):
         'teaching_assignment__class_name'
     ).order_by('day', 'start_time')
 
-    return render(request, 'main/student_timetable.html', {
+    return render(request, 'student_timetable.html', {
         'student': student,
         'timetable': timetable,
     })
@@ -554,7 +554,8 @@ def student_notifications(request):
         'notification'
     ).order_by('-notification__created_at')
 
-    return render(request, 'main/student_notifications.html', {
+    return render(request, 'student_notifications.html', {
         'student': student,
         'notifications': notifications,
     })
+    
